@@ -31,6 +31,21 @@ If no `config.toml` exists or no `[auth]` section is found, default to `user` mo
 
 The knowledge base functions as **long-term memory** — structured, interconnected knowledge that persists indefinitely and requires deliberate retrieval. It complements the auto-memory file (e.g., `MEMORY.md`), which functions as **working memory** — always loaded into context but capacity-constrained.
 
+### Garden Location
+
+In `agent` mode, place the garden — your knowledge base — as close to your auto-memory file as possible. The garden is agent memory, not project data — it should live alongside your other persistent memory, not in the project root.
+
+```
+<auto-memory-dir>/
+├── MEMORY.md     ← working memory (always loaded)
+└── garden/       ← long-term memory (tendr garden)
+    ├── config.toml
+    ├── index/
+    └── entries/
+```
+
+In `user` mode, the garden lives in the project root (e.g., `.tendr/`) since it belongs to the project, not the agent.
+
 | | Working Memory (auto-memory) | Long-Term Memory (KB) |
 |---|---|---|
 | Loaded | Always (automatic) | On demand (`tendr stat`, `tendr tree`) |
