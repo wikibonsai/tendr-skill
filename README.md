@@ -27,6 +27,68 @@ At session start, read `config.toml` at the vault root and check `[auth]`:
 
 If no `config.toml` exists or no `[auth]` section is found, default to `user` mode.
 
+## Memory Architecture
+
+The knowledge base functions as **long-term memory** — structured, interconnected knowledge that persists indefinitely and requires deliberate retrieval. It complements the auto-memory file (e.g., `MEMORY.md`), which functions as **working memory** — always loaded into context but capacity-constrained.
+
+| | Working Memory (auto-memory) | Long-Term Memory (KB) |
+|---|---|---|
+| Loaded | Always (automatic) | On demand (`tendr stat`, `tendr tree`) |
+| Capacity | Limited (~200 lines) | Unlimited |
+| Structure | Flat text | Typed links, attributes, hierarchy |
+| Best for | Retrieval cues, active preferences | Reference material, decision rationale, evolving artifacts |
+
+### Retrieval — When to Read
+
+Run `tendr tree` at session start to orient.
+
+Before responding to a domain-specific question, run `tendr stat <topic>` to check whether the KB holds relevant context — ancestors, children, and linked entries may change how you answer.
+
+Maintain retrieval cues in working memory that map question types to KB entries:
+
+```markdown
+## KB Lookup Triggers
+- Repo dependencies → `tendr stat architecture`
+- Book content → `tendr stat book-chapters`
+- Deadlines → `tendr stat paper-timeline`
+```
+
+### Encoding — When to Write
+
+Create or update KB entries when you encounter:
+
+1. **Structured knowledge with relationships** — tables, dependency chains, anything where connections between items matter.
+2. **Evolving artifacts** — content iterated across multiple sessions. Store the current state as an entry; update it as changes are made.
+3. **Decision rationale** — record both the decision and the reasoning. Future sessions need *why*, not just *what*.
+4. **Surprising information** — when assumptions are corrected or outcomes diverge from expectations, encode the correction.
+
+Do NOT write to the KB:
+- Ephemeral task state or routine session details
+- Information already covered in project documentation
+- Unverified speculation
+
+### Consolidation
+
+At natural session boundaries (end of session, topic shift, or user request):
+
+1. Review the session for knowledge worth persisting
+2. Update existing entries over creating new ones
+3. Prune or merge entries that have become redundant
+4. Update working memory retrieval cues if new entries were created
+
+### What Belongs Where
+
+| Information | Working Memory | Long-Term Memory |
+|---|---|---|
+| User preferences | ✓ | |
+| Quick reference paths | ✓ | |
+| Retrieval cues into KB | ✓ | |
+| Reference tables | | ✓ |
+| Dependency maps | | ✓ |
+| Decision log with rationale | | ✓ |
+| Evolving structured artifacts | | ✓ |
+| Domain knowledge with links | | ✓ |
+
 ## WikiBonsai Syntax
 
 Three primitives. Full specs linked below.
