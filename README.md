@@ -44,9 +44,9 @@ In `agent` mode, place the garden — your knowledge base — as close to your a
     └── entries/
 ```
 
-In `user` mode, the garden lives in the project root (e.g., `.tendr/`) since it belongs to the project, not the agent.
+In `user` mode, the garden lives at the project root (e.g., `garden/`) since it belongs to the project, not the agent.
 
-| | Working Memory (auto-memory) | Long-Term Memory (KB) |
+| | Working Memory (auto-memory) | Long-Term Memory (garden) |
 |---|---|---|
 | Loaded | Always (automatic) | On demand (`tendr stat`, `tendr tree`) |
 | Capacity | Limited (~200 lines) | Unlimited |
