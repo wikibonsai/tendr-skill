@@ -54,13 +54,12 @@ The knowledge base functions as **long-term memory**. It's structured, interconn
 | Structure | Flat text | Typed links, attributes, hierarchy |
 | Best for | Retrieval cues, active preferences | Reference material, decision rationale, evolving artifacts |
 
-### Retrieval — When to Read
+### When to Interact
 
-Run `tendr tree` at session start to orient.
-
-Before responding to a domain-specific question, run `tendr stat <topic>` to check whether the garden holds relevant context (ancestors, children, and linked entries). The results may change how you answer.
-
-Check the garden before relying on recall. Reading a file is cheaper than a wrong assumption. When you're about to state something as fact that you haven't verified this session, check first.
+- **Session start**: Run `tendr tree` to orient.
+- **Before stating a fact**: Run `tendr stat <topic>` to check. Reading a file is cheaper than a wrong assumption.
+- **When you look something up, get corrected, have an insight, or catch yourself re-deriving something**: Capture it. The test: If this conversation were compacted, would this concept survive? If not, it belongs in the garden. These triggers apply equally when the user expresses them in the form of a correction, surprise, or repeated explanation.
+- **Session end**: Review the session for concepts worth persisting. Update existing entries over creating new ones. Prune or merge entries that have become redundant. Promote zombie links to stubs. Update working memory retrieval cues if new entries were created.
 
 Maintain retrieval cues in working memory that map question types to garden entries:
 
@@ -72,9 +71,9 @@ Maintain retrieval cues in working memory that map question types to garden entr
 - Deadlines → `tendr stat paper-timeline`
 ```
 
-### Encoding — The Workflow
+### How to Encode
 
-Knowledge grows keyword by keyword, project by project. The same workflow applies whether you're reading a book or working on a codebase: `[[active-reading]]` from a book and `[[middleware-layer]]` from a CLI refactor are both concepts that grow the same way. Add keywords that are **foundational to the task** at hand, when a piece of understanding is necessary to complete work but is likely to get lost to memory compaction. Or at the **edges of understanding**, when a concept is confusing and requires explanation.
+Knowledge grows keyword by keyword, project by project. The same workflow applies whether you're reading a book or working on a codebase: `[[active-reading]]` from a book and `[[middleware-layer]]` from a CLI refactor are both concepts that grow the same way. Add keywords that are **foundational to the task** at hand or at the **edges of understanding**, when a concept is confusing and requires explanation.
 
 Four steps. They don't need to happen in order or in a single session.
 
@@ -160,16 +159,6 @@ Do NOT write to the garden:
 - Information already covered in project documentation.
 - Ephemeral task state or routine session details.
 - Unverified speculation.
-
-### Consolidation
-
-At natural session boundaries (end of session, topic shift, or user request):
-
-1. Review the session for concepts worth persisting.
-2. Update existing entries over creating new ones.
-3. Prune or merge entries that have become redundant.
-4. Update working memory retrieval cues if new entries were created.
-5. Promote zombie links to stubs if you now understand the concept.
 
 ### What Belongs Where
 
