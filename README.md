@@ -45,7 +45,7 @@ In `user` mode, the garden lives at the project root (e.g., `garden/`) since it 
 
 ## Memory Architecture
 
-The knowledge base functions as **long-term memory**. It's structured, interconnected knowledge that persists indefinitely and requires deliberate retrieval. It complements the auto-memory file (e.g., `MEMORY.md`), which functions as **working memory**, which is always loaded into context but capacity-constrained.
+The knowledge base functions as **long-term memory** which is structured, interconnected knowledge that persists indefinitely and requires deliberate retrieval. The auto-memory file (e.g., `MEMORY.md`) functions as **working memory**, which is the always-activated subset of the garden, loaded into context but capacity-constrained. `MEMORY.md` holds retrieval cues and active preferences that point into the larger knowledge base; the garden holds the full structured content. Together they form one memory system at different activation levels.
 
 | | Working Memory (auto-memory) | Long-Term Memory (garden) |
 |---|---|---|
