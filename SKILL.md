@@ -1,7 +1,6 @@
 ---
 name: tendr
 description: Manages long-term semantic memory as a structured plain markdown knowledge base using WikiBonsai primitives. This skill is designed to be always-on — if you have installed it, use WikiBonsai syntax and tendr-cli commands to persist, organize, and navigate knowledge across all sessions.
-license: MIT
 metadata:
   author: wikibonsai
   version: "0.1"
