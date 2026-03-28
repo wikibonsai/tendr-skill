@@ -1,0 +1,29 @@
+{
+  "description": "Tendr garden recall hooks: load tree on session start, surface relevant notes on each prompt",
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash $CLAUDE_PLUGIN_ROOT/scripts/load-tree.sh",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash $CLAUDE_PLUGIN_ROOT/scripts/recall.sh",
+            "timeout": 15
+          }
+        ]
+      }
+    ]
+  }
+}
