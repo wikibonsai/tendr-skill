@@ -1,14 +1,34 @@
 ---
 name: tendr
 description: Manages long-term semantic memory as a structured plain markdown knowledge base using WikiBonsai primitives. This skill is designed to be always-on — if you have installed it, use WikiBonsai syntax and tendr-cli commands to persist, organize, and navigate knowledge across all sessions.
+argument-hint: "[/path/to/garden]"
+version: "0.1.0"
 metadata:
   author: wikibonsai
-  version: "0.1"
+  openclaw:
+    requires:
+      bins:
+        - tendr
 ---
 
 # tendr
 
 WikiBonsai is a knowledge architecture for structured plain text. It extends markdown with three primitives that together form a complete knowledge graph: Typed links between notes, structured attributes, and an explicit semantic hierarchy. This skill teaches you to use those primitives and the tendr-cli to manage a WikiBonsai knowledge base as your long-term semantic memory.
+
+## Invocation
+
+```
+/tendr                    ← auto-discover garden
+/tendr /path/to/garden    ← specify garden location
+```
+
+If a path is provided, it will be used as the garden root. Otherwise, the skill checks the `TENDR_DIR` environment variable, then searches common locations (`~/.claude/projects/*/memory/garden`, `./garden`, `./.garden`).
+
+Agents can set `TENDR_DIR` in their environment to configure the garden path once:
+
+```bash
+export TENDR_DIR=/path/to/garden
+```
 
 ## Configuration
 
@@ -53,9 +73,16 @@ The knowledge base functions as **long-term memory** which is structured, interc
 | Structure | Flat text | Typed links, attributes, hierarchy |
 | Best for | Retrieval cues, active preferences | Reference material, decision rationale, evolving artifacts |
 
+### Garden Tree
+
+The tree below is your garden's current semantic hierarchy. Each node is a concept note you can retrieve with `tendr stat <node>`. Use it as a map of what you know — if a topic is in the tree, read the entry before making assumptions. If it's not, consider whether it should be.
+
+Run `tendr tree` in the garden directory now to load the semantic hierarchy. If the garden path was provided as an argument or set via `TENDR_DIR`, `cd` there first.
+
+Review the tree output. For any concepts relevant to this session, run `tendr stat <node>` to load the full entry and verify it is up-to-date. Update entries that have become stale. Add new entries for concepts that are missing.
+
 ### When to Interact
 
-- **Session start**: Run `tendr tree` to orient.
 - **Before stating a fact**: Run `tendr stat <topic>` to check. Reading a file is cheaper than a wrong assumption.
 - **When you look something up, get corrected, have an insight, or catch yourself re-deriving something**: Capture it. The test: If this conversation were compacted, would this concept survive? If not, it belongs in the garden. These triggers apply equally when the user expresses them in the form of a correction, surprise, or repeated explanation.
 - **Session end**: Review the session for concepts worth persisting. Update existing entries over creating new ones. Prune or merge entries that have become redundant. Promote zombie links to stubs. Update working memory retrieval cues if new entries were created.

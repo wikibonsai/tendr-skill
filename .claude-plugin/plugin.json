@@ -1,0 +1,8 @@
+{
+  "name": "tendr-skill",
+  "description": "Manages long-term semantic memory as structured knowledge in plain text using WikiBonsai primitives and tendr-cli.",
+  "author": {
+    "name": "WikiBonsai",
+    "url": "https://github.com/wikibonsai"
+  }
+}
