@@ -130,13 +130,18 @@ tendr-skill/
 ├── .claude-plugin/
 │   └── plugin.json         ← Claude Code plugin metadata
 ├── skills/
-│   └── tendr/
-│       └── SKILL.md        ← skill content (instructions, syntax, workflow)
+│   ├── tendr/
+│   │   └── SKILL.md        ← main skill (syntax, workflow, CLI reference)
+│   └── tendr-gc/
+│       └── SKILL.md        ← garden consolidation sub-agent
 ├── hooks/
-│   └── hooks.json          ← SessionStart + UserPromptSubmit hooks
+│   ├── hooks.json          ← Claude Code hooks (session start, recall, gc)
+│   ├── pi-hooks.json       ← pi hook config
+│   └── gptme-hooks.toml    ← gptme hook config
 ├── scripts/
 │   ├── load-tree.sh        ← discovers garden and prints semantic tree
-│   └── recall.sh           ← fuzzy-matches prompt keywords against garden nodes
+│   ├── recall.sh           ← fuzzy-matches prompt keywords against garden nodes
+│   └── gc.sh               ← post-consolidation cleanup (doctor, tree refresh)
 ├── README.md               ← this file
 └── LICENSE                  ← MIT
 ```

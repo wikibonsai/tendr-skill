@@ -1,0 +1,23 @@
+{
+  "description": "Tendr garden hooks for pi. Place in .pi/hooks/ or ~/.pi/agent/hooks/",
+  "hooks": {
+    "session_start": [
+      {
+        "command": "bash scripts/load-tree.sh",
+        "timeout": 10
+      }
+    ],
+    "user_prompt": [
+      {
+        "command": "bash scripts/recall.sh",
+        "timeout": 15
+      }
+    ],
+    "pre_compaction": [
+      {
+        "command": "bash scripts/gc.sh",
+        "timeout": 30
+      }
+    ]
+  }
+}

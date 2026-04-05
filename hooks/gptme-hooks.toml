@@ -1,0 +1,18 @@
+# Tendr garden hooks for gptme.
+# Add to ~/.config/gptme/config.toml or gptme.toml [hooks] section.
+
+[hooks]
+
+[hooks.SESSION_START]
+command = "bash scripts/load-tree.sh"
+timeout = 10
+
+[hooks.TOOL_PRE_EXECUTE]
+# recall relevant garden nodes before each tool call
+command = "bash scripts/recall.sh"
+timeout = 15
+
+[hooks.FILE_POST_SAVE]
+# trigger gc after file saves (approximates context growth)
+command = "bash scripts/gc.sh"
+timeout = 30
