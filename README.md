@@ -18,10 +18,24 @@ npm install -g tendr-cli
 
 ## Supported Agents
 
-- [Claude Code](https://claude.ai/code) (Anthropic)
-- [OpenClaw](https://github.com/openclaw/openclaw)
+- [Claude Code](#claude-code) by [Anthropic](https://claude.ai/code)
+- [gptme](#gptme) by [gptmeorg](https://github.com/gptme/gptme)
+- [OpenClaw](#openclaw) by [Open Claw](https://github.com/openclaw/openclaw)
+- [pi](#pi) by [badlogic](https://github.com/badlogic/pi-mono/) (badlogic)
 
 ## Install
+
+### Cross-Agent (shared directory)
+
+All supported agents also discover skills in `~/.agents/skills/`:
+
+```bash
+git clone git@github.com:wikibonsai/tendr-skill.git
+mkdir -p ~/.agents/skills/tendr
+ln -s "$(pwd)/tendr-skill/skills/tendr/SKILL.md" ~/.agents/skills/tendr/SKILL.md
+```
+
+This makes the skill available to pi, gptme, and OpenClaw from a single install.
 
 ### Claude Code
 
@@ -49,6 +63,26 @@ ln -s "$(pwd)/tendr-skill/skills/tendr/SKILL.md" .claude/skills/tendr/SKILL.md
 
 Invoke with `/tendr` in Claude Code.
 
+### gptme
+
+**User-level:**
+
+```bash
+git clone git@github.com:wikibonsai/tendr-skill.git
+mkdir -p ~/.config/gptme/skills/tendr
+ln -s "$(pwd)/tendr-skill/skills/tendr/SKILL.md" ~/.config/gptme/skills/tendr/SKILL.md
+```
+
+**Workspace-level:**
+
+```bash
+git clone git@github.com:wikibonsai/tendr-skill.git
+mkdir -p .gptme/skills/tendr
+ln -s "$(pwd)/tendr-skill/skills/tendr/SKILL.md" .gptme/skills/tendr/SKILL.md
+```
+
+gptme auto-loads the skill when "tendr" is mentioned in conversation.
+
 ### OpenClaw
 
 **User-level:**
@@ -68,6 +102,26 @@ ln -s "$(pwd)/tendr-skill/skills/tendr/SKILL.md" skills/tendr/SKILL.md
 ```
 
 Invoke with `/tendr` in OpenClaw.
+
+### pi
+
+**User-level:**
+
+```bash
+git clone git@github.com:wikibonsai/tendr-skill.git
+mkdir -p ~/.pi/agent/skills/tendr
+ln -s "$(pwd)/tendr-skill/skills/tendr/SKILL.md" ~/.pi/agent/skills/tendr/SKILL.md
+```
+
+**Project-level:**
+
+```bash
+git clone git@github.com:wikibonsai/tendr-skill.git
+mkdir -p .pi/skills/tendr
+ln -s "$(pwd)/tendr-skill/skills/tendr/SKILL.md" .pi/skills/tendr/SKILL.md
+```
+
+Invoke with `/skill:tendr` in pi.
 
 ## Repo Structure
 
