@@ -139,7 +139,8 @@ tendr-skill/
 │   ├── pi-hooks.json       ← pi hook config
 │   └── gptme-hooks.toml    ← gptme hook config
 ├── scripts/
-│   ├── load-tree.sh        ← discovers garden and prints semantic tree
+│   ├── load.sh             ← preflight check, discover garden, print semantic tree
+│   ├── preflight.sh        ← verify tendr-cli is installed and executable
 │   ├── recall.sh           ← fuzzy-matches prompt keywords against garden nodes
 │   └── gc.sh               ← post-consolidation cleanup (doctor, tree refresh)
 ├── README.md               ← this file

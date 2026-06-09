@@ -3,6 +3,9 @@
 # Usage: load-tree.sh [/path/to/garden]
 # Also respects TENDR_DIR env var.
 
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+bash "$SCRIPT_DIR/preflight.sh" || exit $?
+
 GARDEN_DIR="${1:-$TENDR_DIR}"
 
 # If no path provided, search common locations
