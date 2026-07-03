@@ -2,7 +2,9 @@
 # Recall relevant garden notes based on user prompt keywords.
 # Receives JSON via stdin with user_prompt field.
 # Matches prompt words against garden tree nodes using fuzzy linguistic matching.
-# Outputs tendr stat results for matching nodes.
+# Outputs a bounded, compact list of matching nodes (name + tldr) as *pointers* —
+# the agent runs `tendr stat <node>` to load a full note. This keeps per-prompt
+# token cost small and predictable. Tune the cap with TENDR_RECALL_MAX (default 5).
 
 # Read the user prompt from stdin JSON
 INPUT=$(cat)
@@ -145,14 +147,29 @@ if [ -z "$MATCHES" ]; then
   exit 0
 fi
 
-# Run tendr stat for each match and collect output
-echo "--- tendr recall ---"
-echo ""
+# Bounded output: emit at most TENDR_RECALL_MAX pointers (name + tldr), never a
+# full `tendr stat` dump — that kept token cost proportional to match count and
+# garden size. Pointers let the agent decide what (if anything) to actually load.
+MAX_MATCHES="${TENDR_RECALL_MAX:-5}"
+TOTAL=$(printf '%s\n' "$MATCHES" | grep -c .)
+
+echo "--- tendr recall: possibly relevant garden notes ---"
+echo "(run 'tendr stat <node>' to load any of these)"
+COUNT=0
 while IFS= read -r node; do
-  STAT=$(cd "$GARDEN_DIR" && tendr stat "$node" 2>/dev/null)
-  if [ -n "$STAT" ]; then
-    echo "$STAT"
-    echo ""
+  [ -z "$node" ] && continue
+  COUNT=$((COUNT + 1))
+  if [ "$COUNT" -gt "$MAX_MATCHES" ]; then break; fi
+  # cheap tldr lookup: find the note file, read its `: tldr ::` line (strip quotes)
+  NODE_FILE=$(find "$GARDEN_DIR" -name "${node}.md" -not -path '*/node_modules/*' 2>/dev/null | head -1)
+  TLDR=$(grep -m1 -iE '^: *tldr *::' "$NODE_FILE" 2>/dev/null | sed -E 's/^: *tldr *:: *//; s/^"//; s/"$//')
+  if [ -n "$TLDR" ]; then
+    echo "- ${node}: ${TLDR}"
+  else
+    echo "- ${node}"
   fi
 done <<< "$MATCHES"
+if [ "$TOTAL" -gt "$MAX_MATCHES" ]; then
+  echo "…and $((TOTAL - MAX_MATCHES)) more (matched ${TOTAL}; narrow the query to surface others)."
+fi
 echo "--- end recall ---"
