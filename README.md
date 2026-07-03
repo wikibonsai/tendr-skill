@@ -2,6 +2,10 @@
 
 [![A WikiBonsai Project](https://img.shields.io/badge/%F0%9F%8E%8B-A%20WikiBonsai%20Project-brightgreen)](https://github.com/wikibonsai/wikibonsai)
 
+<p align="center">
+  <img src="./static/tendr.svg" width="35%" height="35%"/>
+</p>
+
 An AI agent skill for managing long-term semantic memory as structured knowledge in plain text (markdown).
 
 🤖 🚰 ✂️ Unlock [🎋 WikiBonsai](https://github.com/wikibonsai/wikibonsai) digital gardening for your AI agent.
@@ -139,10 +143,10 @@ tendr-skill/
 │   ├── pi-hooks.json       ← pi hook config
 │   └── gptme-hooks.toml    ← gptme hook config
 ├── scripts/
-│   ├── load.sh             ← preflight check, discover garden, print semantic tree
+│   ├── load.sh             ← preflight, discover garden, print tree + kick-off directive
 │   ├── preflight.sh        ← verify tendr-cli is installed and executable
-│   ├── recall.sh           ← fuzzy-matches prompt keywords against garden nodes
-│   └── gc.sh               ← post-consolidation cleanup (doctor, tree refresh)
+│   ├── recall.sh           ← bounded per-prompt list of relevant nodes (TENDR_RECALL_MAX)
+│   └── gc.sh               ← deterministic cleanup (doctor, tree refresh)
 ├── README.md               ← this file
 └── LICENSE                  ← MIT
 ```
@@ -156,6 +160,51 @@ export TENDR_DIR=/path/to/garden
 ```
 
 If unset, the plugin auto-discovers the garden from common locations. The `/tendr` command also accepts a path argument: `/tendr /path/to/garden`.
+
+## Hooks (Auto-Loading)
+
+Skills load on demand, but **hooks** make the garden load *automatically* at session start — so the agent enters the tendr workflow instead of waiting to be reminded. The skill ships three shared, harness- and model-agnostic scripts in `scripts/`; only the wiring differs per harness.
+
+| Script | Fires | Does |
+|---|---|---|
+| `load.sh` | session start | discovers the garden, prints the semantic tree + a kick-off directive |
+| `recall.sh` | each user prompt | surfaces a **bounded** list of relevant nodes as pointers (`name: tldr`); the agent runs `tendr stat <node>` to load one. Cap with `TENDR_RECALL_MAX` (default 5) so per-prompt token cost stays small |
+| `gc.sh` | (see note) | deterministic cleanup — `tendr doctor` + tree refresh. Consolidation itself is the `/tendr gc` sub-agent, which a shell hook can't run |
+
+### Claude Code
+
+**As a plugin** — hooks wire automatically from `hooks/hooks.json`. Nothing to do.
+
+**As a standalone skill** — `hooks/hooks.json` is **not** read (no `$CLAUDE_PLUGIN_ROOT` outside a plugin), so wire it yourself in `~/.claude/settings.json` with an **absolute** path:
+
+```json
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "*",
+        "hooks": [
+          { "type": "command", "command": "bash /ABSOLUTE/PATH/TO/tendr-skill/scripts/load.sh", "timeout": 10 }
+        ]
+      }
+    ]
+  }
+}
+```
+
+Merge into existing settings — don't replace. New user-level hooks may need a restart (or opening `/hooks` once) to take effect. For per-prompt recall, add the same shape under `UserPromptSubmit` pointing at `recall.sh`.
+
+### pi
+
+Copy `hooks/pi-hooks.json` into `.pi/hooks/` (project) or `~/.pi/agent/hooks/` (user).
+
+### gptme
+
+Add the `[hooks]` block from `hooks/gptme-hooks.toml` to `~/.config/gptme/config.toml` (or your `gptme.toml`).
+
+### OpenClaw
+
+Per-harness hook wiring isn't shipped yet — the shared `scripts/` are ready, but an OpenClaw hook config is still TODO. Until then, run `/tendr` manually at session start. Contributions welcome.
 
 ## Getting Started
 
