@@ -6,12 +6,13 @@
 # the agent runs `tendr stat <node>` to load a full note. This keeps per-prompt
 # token cost small and predictable. Tune the cap with TENDR_RECALL_MAX (default 5).
 
-# Read the user prompt from stdin JSON
+# Read the user prompt from stdin JSON. Harnesses name the field differently
+# (Claude Code: 'prompt'; others: 'user_prompt') — accept either.
 INPUT=$(cat)
 PROMPT=$(echo "$INPUT" | python3 -c "
 import sys, json
 data = json.load(sys.stdin)
-print(data.get('user_prompt', ''))
+print(data.get('prompt') or data.get('user_prompt') or '')
 " 2>/dev/null)
 
 if [ -z "$PROMPT" ]; then
