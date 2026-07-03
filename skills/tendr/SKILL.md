@@ -130,8 +130,8 @@ Three primitives — `[[wikirefs]]`, `: caml :: attrs`, and semtree (indented wi
 
 Full specs:
 
-- [wikirefs](https://github.com/wikibonsai/wikirefs)
-- [caml-mkdn](https://github.com/wikibonsai/caml-mkdn)
+- [wikirefs](https://github.com/wikibonsai/wikirefs/tree/main/spec)
+- [caml-mkdn](https://github.com/wikibonsai/caml-mkdn/tree/main/spec)
 - [semtree](https://github.com/wikibonsai/semtree)
 
 ## tendr-cli
