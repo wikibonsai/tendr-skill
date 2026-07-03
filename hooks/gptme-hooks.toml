@@ -4,7 +4,7 @@
 [hooks]
 
 [hooks.SESSION_START]
-command = "bash scripts/load-tree.sh"
+command = "bash scripts/load.sh"
 timeout = 10
 
 [hooks.TOOL_PRE_EXECUTE]

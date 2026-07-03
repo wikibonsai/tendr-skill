@@ -3,7 +3,7 @@
   "hooks": {
     "session_start": [
       {
-        "command": "bash scripts/load-tree.sh",
+        "command": "bash scripts/load.sh",
         "timeout": 10
       }
     ],

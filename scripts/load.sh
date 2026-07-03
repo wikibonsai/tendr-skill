@@ -1,6 +1,6 @@
 #!/bin/bash
 # Discover the garden and print the semantic tree.
-# Usage: load-tree.sh [/path/to/garden]
+# Usage: load.sh [/path/to/garden]
 # Also respects TENDR_DIR env var.
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
@@ -24,4 +24,11 @@ if [ -z "$GARDEN_DIR" ] || [ ! -f "$GARDEN_DIR/config.toml" ]; then
   exit 0
 fi
 
-cd "$GARDEN_DIR" && tendr tree 2>/dev/null
+cd "$GARDEN_DIR" || exit 0
+
+# Model- and harness-agnostic kick-off directive: injected into context at session
+# start so the agent enters the tendr workflow instead of waiting to be reminded.
+echo "🪴 tendr garden loaded — this is your long-term semantic memory ($GARDEN_DIR)."
+echo "Before asserting a fact, check the garden: 'tendr stat <node>'. Capture new knowledge with tendr-cli (add / graft / connect). Current semantic tree:"
+echo ""
+tendr tree 2>/dev/null
