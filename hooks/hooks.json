@@ -1,5 +1,5 @@
 {
-  "description": "Tendr garden hooks: load tree on session start, surface relevant notes on each prompt, trigger gc at ~50% context usage",
+  "description": "Tendr garden hooks: load the garden tree on session start, surface relevant notes on each prompt",
   "hooks": {
     "SessionStart": [
       {
@@ -21,18 +21,6 @@
             "type": "command",
             "command": "bash $CLAUDE_PLUGIN_ROOT/scripts/recall.sh",
             "timeout": 15
-          }
-        ]
-      }
-    ],
-    "PreCompaction": [
-      {
-        "matcher": "*",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "bash $CLAUDE_PLUGIN_ROOT/scripts/gc.sh",
-            "timeout": 30
           }
         ]
       }

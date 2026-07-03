@@ -85,7 +85,7 @@ Review the tree output. For any concepts relevant to this session, run `tendr st
 
 - **Before stating a fact**: Run `tendr stat <topic>` to check. Reading a file is cheaper than a wrong assumption.
 - **When you look something up, get corrected, have an insight, or catch yourself re-deriving something**: Capture it. The test: If this conversation were compacted, would this concept survive? If not, it belongs in the garden. These triggers apply equally when the user expresses them in the form of a correction, surprise, or repeated explanation.
-- **Consolidation**: Run `/tendr gc` to invoke the Garden Consolidation sub-agent, which reviews recent context, extracts knowledge, and persists it to the garden. This runs automatically at ~50% context usage (via hooks) or manually on demand.
+- **Consolidation**: Run `/tendr gc` to invoke the Garden Consolidation sub-agent, which reviews recent context, extracts knowledge, and persists it to the garden. Deploy it as context fills (before compaction) or on demand. (Automatic hook-based deployment is planned; a shell hook can't run the LLM pass directly.)
 
 Maintain retrieval cues in working memory that map question types to garden entries:
 
@@ -168,9 +168,13 @@ garden-beds/
 
 Run `/tendr gc` to invoke the Garden Consolidation sub-agent. It reviews recent session context, extracts concepts worth persisting, and uses `tendr-cli` commands to create, update, merge, or remove garden entries. All mutations go through the CLI — the sub-agent never writes files directly.
 
-The gc sub-agent runs:
-- **Manually**: `/tendr gc` in any supported agent
-- **Automatically**: Via hooks at ~50% context usage (before compaction)
+The gc sub-agent is deployed:
+- **On demand**: `/tendr gc` in any supported agent
+- **As context fills**: the agent deploys it before compaction (well before auto-compact)
+
+> Note: a shell hook cannot run this LLM pass, so gc is *not* triggered by a plain
+> hook. Automatic deployment via a headless-agent launcher (a command hook that
+> spawns `claude -p` or the equivalent for other harnesses) is planned.
 
 See `skills/tendr-gc/SKILL.md` for the full sub-agent instructions.
 

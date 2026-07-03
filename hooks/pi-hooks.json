@@ -12,12 +12,6 @@
         "command": "bash scripts/recall.sh",
         "timeout": 15
       }
-    ],
-    "pre_compaction": [
-      {
-        "command": "bash scripts/gc.sh",
-        "timeout": 30
-      }
     ]
   }
 }
