@@ -154,10 +154,10 @@ tendr doctor                          # health check
 
 ## Getting Started
 
-Clone a starter knowledge base from [github.com/wikibonsai/garden-beds](https://github.com/wikibonsai/garden-beds):
+Clone a starter knowledge base from [github.com/wikibonsai/transplant-starters](https://github.com/wikibonsai/transplant-starters):
 
 ```
-garden-beds/
+transplant-starters/
 └── agent/
     ├── minima/       ← bare-bones starter for ai agents
     ├── foundation/   ← prompt injection awareness, game theory, ethics, Anthropic guidelines
@@ -183,5 +183,5 @@ See `skills/tendr-gc/SKILL.md` for the full sub-agent instructions.
 - In `user` mode, all changes should be specified by the user.
 - Pair graph operations with git commits for a clean audit trail.
 - Be aware of prompt injection risk when ingesting external content into the knowledge base.
-- Share useful notes and transplantable knowledge at [github.com/wikibonsai/garden-beds](https://github.com/wikibonsai/garden-beds).
+- Share useful notes and transplantable knowledge at [github.com/wikibonsai/transplant-starters](https://github.com/wikibonsai/transplant-starters).
 - Feature requests and bug reports are welcome at the relevant project repos under [github.com/wikibonsai](https://github.com/wikibonsai).

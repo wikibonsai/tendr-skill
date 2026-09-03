@@ -210,13 +210,13 @@ Per-harness hook wiring isn't shipped yet — the shared `scripts/` are ready, b
 
 Once installed, type `/tendr` to activate the skill in your session. On first use, the agent will set up a garden (knowledge base) with a `config.toml`, `index/`, and `entries/` directory.
 
-Clone a starter knowledge base from [garden-beds](https://github.com/wikibonsai/garden-beds) to get going faster.
+Clone a starter knowledge base from [transplant-starters](https://github.com/wikibonsai/transplant-starters) to get going faster.
 
 ## Links
 
 - [WikiBonsai](https://github.com/wikibonsai/wikibonsai) — the project
 - [tendr-cli](https://github.com/wikibonsai/tendr-cli) — the CLI tool
-- [garden-beds](https://github.com/wikibonsai/garden-beds) — starter knowledge bases
+- [transplant-starters](https://github.com/wikibonsai/transplant-starters) — starter knowledge bases
 - [wikirefs](https://github.com/wikibonsai/wikirefs) — `[[wikilink]]` spec
 - [caml-mkdn](https://github.com/wikibonsai/caml-mkdn) — `: key :: value` spec
 - [semtree](https://github.com/wikibonsai/semtree) — semantic tree spec
